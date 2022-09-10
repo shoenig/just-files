@@ -19,7 +19,7 @@ Arguments are a comma-separated list of `<url-path>:<file-path>` pairs.
 ### Examples
 
 ```shell
-BIND=0.0.0.0 PORT=8081 just-files /:/srv
+BIND=0.0.0.0 PORT=8081 just-files /:/www
 ```
 
 ### Building
@@ -28,6 +28,14 @@ The `just-files` file server is written in Go. IT can be built using the normal 
 
 ```shell
 go build
+```
+
+### Installing
+
+With the Go toolchain installed, 
+
+```shell
+go install github.com/shoenig/just-files@latest
 ```
 
 ### Contributing
