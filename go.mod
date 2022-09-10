@@ -1,8 +1,3 @@
-module gophers.dev/cmds/connect-statics
+module github.com/shoenig/just-files
 
-go 1.16
-
-require (
-	github.com/hashicorp/consul v1.10.0
-	github.com/hashicorp/consul/api v1.9.0
-)
+go 1.19
