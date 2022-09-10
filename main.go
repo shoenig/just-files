@@ -25,8 +25,8 @@ func main() {
 	if bind == "" || port == "" {
 		check(errors.New("$BIND and $PORT must be set"))
 	}
-	log.Println("bind is %s", bind)
-	log.Println("port is %s", port)
+	log.Println("bind is", bind)
+	log.Println("port is", port)
 
 	s := http.Server{
 		Addr:              fmt.Sprintf("%s:%s", bind, port),
@@ -57,7 +57,7 @@ func paths(args []string) (map[string]string, error) {
 func router(m map[string]string) http.Handler {
 	mux := http.NewServeMux()
 	for urlPath, filePath := range m {
-		log.Println("mapping %s -> %s", urlPath, filePath)
+		log.Printf("mapping %s -> %s", urlPath, filePath)
 		mux.Handle(urlPath, http.StripPrefix(urlPath, http.FileServer(http.Dir(filePath))))
 	}
 	return mux
@@ -65,6 +65,6 @@ func router(m map[string]string) http.Handler {
 
 func check(err error) {
 	if err != nil {
-		log.Fatalf("unexpected error: %w", err)
+		log.Fatalf("unexpected error: %v", err)
 	}
 }
