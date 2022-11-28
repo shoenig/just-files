@@ -8,6 +8,8 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"github.com/shoenig/go-landlock"
 )
 
 // Usage:
@@ -19,6 +21,8 @@ import (
 func main() {
 	m, err := paths(os.Args[1:])
 	check(err)
+
+	lockdown(m)
 
 	bind := os.Getenv("BIND")
 	port := os.Getenv("PORT")
@@ -67,4 +71,14 @@ func check(err error) {
 	if err != nil {
 		log.Fatalf("unexpected error: %v", err)
 	}
+}
+
+func lockdown(m map[string]string) {
+	var paths []*landlock.Path
+	for _, v := range m {
+		paths = append(paths, landlock.Dir(v, "r"))
+	}
+	ll := landlock.New(paths...)
+	err := ll.Lock(landlock.Mandatory)
+	check(err)
 }
