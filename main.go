@@ -17,15 +17,24 @@ import (
 //   $ BIND=127.0.0.1 PORT=8080 just-files /:.
 
 func main() {
-	m, err := paths(os.Args[1:])
-	check(err)
+	if err := run(os.Args); err != nil {
+		fmt.Println("failure:", err)
+		os.Exit(1)
+	}
+}
+
+func run(args []string) error {
+	m, err := paths(args[1:])
+	if err != nil {
+		return err
+	}
 
 	lockdown(m)
 
 	bind := os.Getenv("BIND")
 	port := os.Getenv("PORT")
 	if bind == "" || port == "" {
-		check(errors.New("$BIND and $PORT must be set"))
+		return errors.New("$BIND and $PORT must be set")
 	}
 	log.Println("bind is", bind)
 	log.Println("port is", port)
@@ -37,7 +46,7 @@ func main() {
 		ReadHeaderTimeout: 1 * time.Second,
 		WriteTimeout:      5 * time.Second,
 	}
-	check(s.ListenAndServe())
+	return s.ListenAndServe()
 }
 
 func paths(args []string) (map[string]string, error) {
