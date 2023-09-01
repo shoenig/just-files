@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/shoenig/go-landlock v0.1.5
-	github.com/shoenig/test v0.6.6
+	github.com/shoenig/test v0.6.7
 )
 
 require (
