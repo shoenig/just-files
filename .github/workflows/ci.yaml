@@ -9,13 +9,13 @@ jobs:
           - ubuntu-24.04
           - ubuntu-22.04
           - macos-14
-          - windows-2022
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-golang@v1
         with:
           version-file: go.mod
+      - uses: extractions/setup-just@v2
       - name: Run Go Test
         run: |
-          go test -race -v ./...
+          just test
