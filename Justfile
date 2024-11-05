@@ -19,4 +19,4 @@ tidy:
 # publish latest git tag as a github release
 release:
         envy exec gh-release goreleaser release --clean
-        $(MAKE) clean
+
