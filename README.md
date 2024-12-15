@@ -10,9 +10,13 @@ Basically none
 
 ### Usage
 
-Set `BIND` environment variable to configure bind address
+Set `BIND` environment variable to configure bind address.
+
+ - defaults to `127.0.0.1`
 
 Set `PORT` environment variable to configure bind port
+
+ - defaults to `8000`
 
 Arguments are a comma-separated list of `<url-path>:<file-path>` pairs.
 
@@ -24,7 +28,8 @@ BIND=0.0.0.0 PORT=8081 just-files /:/www
 
 ### Building
 
-The `just-files` file server is written in Go. IT can be built using the normal Go toolchain steps, e.g.
+The `just-files` file server is written in Go. IT can be built using the normal
+Go toolchain steps, e.g.
 
 ```shell
 go build
