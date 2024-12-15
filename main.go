@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -23,6 +22,13 @@ func main() {
 	}
 }
 
+func envOr(key, fallback string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return fallback
+}
+
 func run(args []string) error {
 	m, err := paths(args[1:])
 	if err != nil {
@@ -31,11 +37,9 @@ func run(args []string) error {
 
 	lockdown(m)
 
-	bind := os.Getenv("BIND")
-	port := os.Getenv("PORT")
-	if bind == "" || port == "" {
-		return errors.New("$BIND and $PORT must be set")
-	}
+	bind := envOr("BIND", "127.0.0.1")
+	port := envOr("PORT", "8000")
+
 	log.Println("bind is", bind)
 	log.Println("port is", port)
 

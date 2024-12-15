@@ -13,8 +13,10 @@ import (
 func TestRun(t *testing.T) {
 	t.Setenv("BIND", "127.0.0.1")
 	t.Setenv("PORT", "8787")
+
 	dir, err := os.MkdirTemp("", "")
 	must.NoError(t, err)
+
 	filename := filepath.Join(dir, "hi.txt")
 	err = os.WriteFile(filename, []byte("hello"), 0o644)
 	must.NoError(t, err)
